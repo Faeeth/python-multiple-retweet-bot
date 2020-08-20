@@ -16,4 +16,4 @@ Usage:
 ## Note :
 - Default bot value is 1
 - You can't use more bot than you have
-- Add your accounts in acc.json by completing the 4 fields in uppercase
+- Add your accounts in acc.json by completing the 4 fields in uppercase (More than 10)
