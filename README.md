@@ -16,6 +16,7 @@ Usage:
 ## Note :
 
 - Default bot value is 1
+- You must put the tweet id (end of url)
 - You cannot use more bot than you set in acc.json
 - Add your accounts in acc.json by completing the 4 fields in uppercase (You can also add more accounts than 10)
 
