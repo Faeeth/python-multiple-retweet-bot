@@ -1,16 +1,14 @@
-#!/usr/bin/python
-
 import sys, getopt, json, tweepy
 
 def print_usage():
-    print ("twitterbotretweet.py -u <url> -i <id> -b <bot>")
+    print ("twitterbotretweet.py -i <id> -b <bot>")
 
 def main(argv):
-   idd =  ''
-   url = ''
-   bot = ''
+   idd = ''
+   bot = '0'
+   y = 0
    try:
-      opts, args = getopt.getopt(argv,"hui:b:",["url=","id","bot="])
+      opts, args = getopt.getopt(argv,"hi:b:",["id","bot="])
    except getopt.GetoptError:
      print_usage()
      print (args) #Debug
@@ -20,12 +18,12 @@ def main(argv):
      sys.exit(2)
    for opt, arg in opts:
       if opt == '-h':
-         print ("twitterbotretweet.py -u <url> -i <id> -b <bot>")
+         print ("twitterbotretweet.py -i <id> -b <bot>")
          sys.exit()
-      elif opt in ("-u","--url"):
-         url = arg
-         idd = url.split("/")[-1:]
       elif opt in ("-i","--id"):
+         if idd:
+            print("You can't use url AND id at the same time")
+            sys.exit(2)
          idd = arg
          if idd.isdigit() == False:
             print("Id value after -i must be Integer")
@@ -35,9 +33,8 @@ def main(argv):
          if bot.isdigit() == False:
             print("Bot value after -b must be Integer")
             sys.exit(2)
-   #print ("url : ", url) #Debug
-   #print ("id : ", idd)  #Debug
-   #print ("bot : ", bot) #Debug
+   if bot == '0':
+      bot = '1'
 
    with open('acc.json') as json_file:
       data = json.load(json_file)
@@ -50,10 +47,15 @@ def main(argv):
        CONSUMER_SECRET_LIST.append(data[k]["CONSUMER_SECRET"])
        ACCESS_TOKEN_LIST.append(data[k]["ACCESS_TOKEN"])
        ACCESS_TOKEN_SECRET_LIST.append(data[k]["ACCESS_TOKEN_SECRET"])
-   #print(CONSUMER_KEY_LIST)		 #Debug
-   #print(CONSUMER_SECRET_LIST)		 #Debug
-   #print(ACCESS_TOKEN_LIST)		 #Debug
-   #print(ACCESS_TOKEN_SECRET_LIST)	 #Debug
+       if data[k]["CONSUMER_KEY"] and data[k]["CONSUMER_SECRET"] and data[k]["ACCESS_TOKEN"] and data[k]["ACCESS_TOKEN_SECRET"]:
+         y = y + 1
+   if int(bot) > y:
+      print("You don't have enough accounts")
+      print("Nb of accounts available : ",y)
+      print("Nb of accounts chosen : ",bot)
+      sys.exit(2)
+   print ("id : ", idd)
+   print ("bot : ", bot)
    for i in range(int(bot)):
       consumer_key = CONSUMER_KEY_LIST[i]
       consumer_secret = CONSUMER_SECRET_LIST[i]
