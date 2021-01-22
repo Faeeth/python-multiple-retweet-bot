@@ -1,7 +1,7 @@
 # python-multiple-retweet-bot
 ## twmultipleretweet.py
 - Description: Retweet a post with multiple accounts
-- Website:  www.faeeth.fr
+- Website:  https://faeeth.fr
 - Copyright (C) 2020 Faeeth <contact@faeeth.fr>
  
 ```bash
